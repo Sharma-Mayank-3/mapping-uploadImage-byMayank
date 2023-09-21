@@ -39,5 +39,33 @@ link : https://console.cloudinary.com/console/c-157e4ae73eb558df62d728a732ee69
 6. In Fetch Type EAGER: delete state(child) state will Not get delete also country(parent) will not get delete.
 
 
+# Many to Many Mapping
+# Student and Department Entity
+1. Here 3 tables will get generated, Student, Department and student-department for mapping, 
+   if by-directional 
+2. if single direction then
+
+        @JoinTable(name = "student-department",
+              joinColumns = @JoinColumn(name = "department", referencedColumnName = "departmentId"),
+               inverseJoinColumns = @JoinColumn(name = "student", referencedColumnName = "studentId")
+       )
+3. Create Student, Create Department.
+4. Get Student By studentId;
+5. Get Department By StudentId
+      Note : get will not work @Query(value = "select d from Department d where d.students= :student") because 
+             there is no column present in department with student.
+      But : findbyStudents will work.
+
+
+
+# In Actual Practice (THEORY)
+# Note :" mapped by is response for saving and deleting, may be"
+1. MappedBy.ALL -> to save and delete all
+2. MappedBy.PERSIST, MappedBy.REMOVE -> only save | only delete.
+3. LAZY is for lazy loading means, if parent is called then child is not get loaded until we 
+   call child, parent.getChild
+4. EAGER -> if parent is called then child will automatically get called.
+
+
 
 
